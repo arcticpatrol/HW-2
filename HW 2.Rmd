@@ -1,0 +1,63 @@
+---
+title: "ER Wait times at ABC Hospital Chain"
+subtitle: "Analyzing the wait times"
+author: "Sai Valluri"
+date: "`r Sys.Date()`"
+output:
+  tufte::tufte_handout:
+    citation_package: natbib
+    latex_engine: xelatex
+  tufte::tufte_book:
+    citation_package: natbib
+    latex_engine: xelatex
+bibliography: skeleton.bib
+link-citations: yes
+geometry: margin = 0.5in
+---
+
+```{r setup, include=FALSE}
+# Required libraries
+library(tufte)
+library(knitr)
+library(pander)
+# invalidate cache when the tufte version changes
+knitr::opts_chunk$set(tidy = FALSE, cache.extra = packageVersion('tufte'))
+options(htmltools.dir.version = FALSE)
+setwd("/Users/saivalluri/Desktop/SV11/class 2/ANOVA/ERWaiting/data/")
+source ("HW.R")
+```
+
+# Introduction
+This document provides the Descriptive Statistics of the Mean Wait Times in ABC Hospital's Main and three of it's Sattelite Campuses. 
+
+```{r, echo=FALSE}
+kable(ER)
+
+```
+
+# Descriptive Statistics
+```{r, echo=FALSE}
+pandoc.table(ER,style = "simple",caption = "Descriptive Statistics")
+```
+# ANOVA
+The ANOVA test was conducted to determine if there is any statistical difference between the mean wait times between the four campuses. 
+The calculation below shows a p-Value of 0.000859. Thus, we reject the Null Hypotheses. We can say with 95% confidence level that the Mean ER Wait times in the four campuses are not the same. 
+```{r, echo=FALSE}
+pander(ER.aov.summary)
+```
+# Tukey-Kramer test
+```{r, echo=FALSE}
+pander(ER.tukey)
+```
+# Levene Test
+```{r, echo=FALSE}
+pander(ER.levene)
+```
+# Boxplot
+```{r, echo=FALSE}
+plot(bp)
+```
+# f Distribution
+```{r, fig.width=4,fig.height=3, echo=FALSE}
+plot(pf)
+```
